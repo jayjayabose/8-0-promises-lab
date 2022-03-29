@@ -10,8 +10,19 @@ const finder = require("./helpers/finder");
  * @param {Object} person.first - The person's first name.
  * @param {Object} person.last - The person's last name.
  */
-function logResult() {}
+function logResult(obj) {
+  finder(obj.first, obj.last)
+    .then(result => {
+      console.log(result);
+    })
+    .catch(error => { 
+      console.log(error);
+    });
+}
 
+//logResult({ first: "Rhea", last: "Callahan"} )
+//logResult({ first: "Tyler", last: "Yates"} );
+//logResult({ first: "Yvette", last: "Glenn"} )
 /**
  * logTwoResults()
  * ========================
@@ -22,7 +33,13 @@ function logResult() {}
  * @param {Object} person1.last - The person's last name.
  * @param {Object} person2 - A person's names. In the same format as person1.
  */
-function logTwoResults() {}
+function logTwoResults(obj1, obj2) {
+  [... arguments].forEach(arg => {
+    logResult(arg);
+  });
+}
+
+//logTwoResults({ first: "Tyler", last: "Yates" },   { first: "Yvette", last: "Glenn" } );
 
 /**
  * logThreeResultsCities()
@@ -35,7 +52,26 @@ function logTwoResults() {}
  * @param {Object} person2 - A person's names. In the same format as person1.
  * @param {Object} person3 - A person's names. In the same format as person1.
  */
-function logThreeResultsCities() {}
+function logThreeResultsCities(obj1, obj2, obj3) {
+  //loop through args
+  [... arguments].forEach(arg => {
+    finder(arg.first, arg.last)
+    .then(result => {
+      console.log(result[0].city);
+    })
+    .catch(error =>{
+      console.log(error);
+    });
+  })    
+}
+
+/**
+logThreeResultsCities(
+  { first: "Joyce", last: "Wilkins" }, // Kohatk
+  { first: "Marshall", last: "Short" }, // Soham
+  { first: "Janet", last: "Evans" } // Lafferty
+);
+ */
 
 // Do not change any of the code below this line.
 module.exports = {
